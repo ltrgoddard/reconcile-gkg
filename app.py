@@ -30,7 +30,6 @@ def reconcile():
             if queries[k].get('limit'):
                 payload += '&limit=' + str(queries[k]['limit'])
 
-            print(payload) 
             r = requests.get(payload)
             if r.status_code == 200:
                 results = json.loads(r.text)['itemListElement']
