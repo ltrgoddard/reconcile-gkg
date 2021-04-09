@@ -11,4 +11,8 @@ This is a simple translation layer between Google's [Knowledge Graph Search API]
 
 ## Limitations
 
-At present the server only implements the following parameters from the Reconciliation Service API standard for requests: `query`, `type` and `limit`. All returned resuls are treated as succesful matches and the optional `features` array is not provided in responses. 
+At present the server only implements the following parameters from the Reconciliation Service API standard for requests: `query`, `type` and `limit`. All returned resuls are treated as succesful matches and the optional `features` array is not provided in responses.
+
+## Deployment
+
+The server can easily be deployed to the internet as an AWS Lambda function using the [Serverless](https://www.serverless.com/) framework. An example `serverless.yml` file is provided. 
