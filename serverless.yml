@@ -18,6 +18,7 @@ provider:
   runtime: python3.6
   stage: dev
   region: eu-west-1
+  profile: personal
   deploymentBucket:
     name: serverless-deployment-gw-2
   environment:
