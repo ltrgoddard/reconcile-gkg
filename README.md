@@ -4,7 +4,7 @@ This is a simple translation layer between Google's [Knowledge Graph Search API]
 
 ## Usage
 
-1. Clone this repository and install the requirements using `pip install -r requirements.txt`.
+1. Clone this repository and install the requirements using `pip install -r requirements.txt`, preferably using a virtual environment.
 2. Fill in the environment variable `GKG_API_KEY` in `.env` with a valid API key for the Knowledge Graph Search API.
 3. Run the server with `flask run`.
 4. Treat the local server (at `http://localhost:5000` by default) as if it was a reconciliation service endpoint, making requests using a client like OpenRefine or [reconciler](https://github.com/global-witness/reconciler). Requests will be translated and sent to the Google API.
