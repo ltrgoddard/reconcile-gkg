@@ -37,9 +37,11 @@ def reconcile():
                 return jsonify({'error': r.status_code})
 
             response[k]['result'] = []
+            
             for item in results:
-                response[k]['result'].append(
-                    {
+                # Exclude result items without a type
+                if item['result'].get('@type'):
+                    response[k]['result'].append({
                         "id": item['result'].get('@id'),
                         "name": item['result'].get('name'),
                         "description": item['result'].get('description'),
