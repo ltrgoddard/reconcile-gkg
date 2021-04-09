@@ -1,11 +1,13 @@
 from flask import Flask, jsonify, request
 import requests, json, os
+import random
 
 app = Flask(__name__)
 
 def make_request(payload, api_key):
     payload += '&key=' + api_key
     r = requests.get(payload)
+    random_number = random.randint(1, 11)
     if r.status_code == 200:
         return json.loads(r.text)
     else:
