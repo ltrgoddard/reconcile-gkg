@@ -7,14 +7,24 @@ app = Flask(__name__)
 def make_request(payload, api_key):
     payload += '&key=' + api_key
     r = requests.get(payload)
-    random_number = random.randint(1, 11)
     if r.status_code == 200:
         return json.loads(r.text)
     else:
         return {'error': r.status_code}
 
+@app.route('/', methods = ['GET'])
+def manifest():
+    return {
+        'authentication': {
+            'type': 'apiKey',
+            'name': 'key',
+            'in': 'query'
+        }
+    }
+
 @app.route('/', methods = ['POST'])
 def reconcile():
+    api_key = request.args.get('key')
     queries = request.form.get('queries')
 
     if not queries:
@@ -34,10 +44,10 @@ def reconcile():
         if query.get('limit'):
             payload += '&limit=' + str(query['limit'])
 
-        results = make_request(payload, os.environ.get('GKG_API_KEY'))
+        results = make_request(payload, api_key)
 
         if results.get('error'):
-            return jsonify(results)
+            return jsonify(results), results['error']
         
         response[query_id]['result'] = []
             
