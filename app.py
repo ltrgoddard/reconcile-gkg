@@ -31,9 +31,11 @@ def reconcile():
         return jsonify({'error': 'Please provide a batch of queries.'})
     
     queries = json.loads(queries)
-    response = dict.fromkeys(queries.keys(), {})
-        
+    response = {}
+
     for query_id, query in queries.items():
+        response[query_id] = {'result': []}
+
         payload = '{endpoint}?query={query}'.format(
             endpoint = os.environ.get('GKG_ENDPOINT'),
             query = query['query'])
@@ -49,8 +51,6 @@ def reconcile():
         if results.get('error'):
             return jsonify(results), results['error']
         
-        response[query_id]['result'] = []
-            
         for item in results['itemListElement']:
             # Exclude result items without a type
             if item['result'].get('@type'):
@@ -62,5 +62,5 @@ def reconcile():
                     'score': item.get('resultScore'),
                     'match': True
                 })
-                
-        return jsonify(response)
+
+    return jsonify(response)
